@@ -1,0 +1,42 @@
+@(id: Long, teams:List[Team], gameForm: Form[Game], user: User)
+
+@import helper._
+
+@main("Create Game", user) {
+    
+    <h1>Create a game</h1>
+    
+    @form(routes.AdminController.saveGame(id), 'id -> "createGame") {
+                
+            @select(
+                gameForm("teamHome.id"), 
+                teams.map(aTeam=> aTeam.id.toString -> (aTeam.name)),
+                '_default -> "Choose the home team",
+                '_label -> "Home team",
+                '_error -> gameForm("teamHome").error.map(_.withMessage("Please select the home team"))
+            )
+            @select(
+                gameForm("teamAway.id"), 
+                teams.map(aTeam=> aTeam.id.toString -> (aTeam.name)),
+                '_default -> "Choose the away team",
+                '_label -> "Away team",
+                '_error -> gameForm("teamAway").error.map(_.withMessage("Please select the away team"))
+            )
+            @inputText(gameForm("matchday"), '_label -> "Matchday")
+			@inputText(gameForm("matchDate"), '_label -> "Match date", '_help -> "Format: dd.MM.yyyy HH:mm") 
+            @inputText(gameForm("goalsHomeTeam"), '_label -> "Goals home team")
+            @inputText(gameForm("goalsAwayTeam"), '_label -> "Goals away team")
+            @checkbox(field = gameForm("played"))
+            
+            <input type="hidden" value='@id' name="league.id" />
+
+        
+        <div class="actions">
+            <input type="submit" value="Create this game" class="btn primary">
+            <br/>
+            <a href="@routes.AdminController.show(id)" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

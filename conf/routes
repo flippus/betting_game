@@ -1,0 +1,94 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+# Login
+GET     /login                           	controllers.SessionController.index()
+POST	/login								controllers.SessionController.login()
+GET     /requestpassword                    controllers.SessionController.requestPassword()
+POST	/getnewpassword						controllers.SessionController.getNewPassword()
+
+#Registration
+GET     /register                           controllers.SessionController.openRegistration()
+POST	/register							controllers.SessionController.register()
+
+#Logout
+GET		/logout								controllers.SessionController.logout()
+
+GET 	/									controllers.ApplicationController.index()
+
+#Betting
+GET 	/league/:id/bets						controllers.BetController.index(id:Long)
+POST 	/league/betting/:id						controllers.BetController.save(id:Long)
+GET 	/league/:id/table						controllers.BetController.showTable(id:Long)
+GET 	/league/:id/highscore					controllers.BetController.showHighscore(id:Long)
+GET		/league/:id/matchday					controllers.BetController.changeMatchday(id:Long)
+
+#User pw change
+GET     /changepassword                    	controllers.UserController.changePassword()
+POST	/setpassword						controllers.UserController.setPassword()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               		controllers.Assets.at(path="/public", file)
+
+#Admin Page
+
+# User Admin
+
+GET 	/admin/users/						controllers.AdminController.userIndex()
+
+GET 	/admin/users/edit					controllers.AdminController.editUser(email:String)
+
+POST 	/admin/users/update					controllers.AdminController.updateUser(email:String)
+
+GET 	/admin/users/delete					controllers.AdminController.deleteUser(email:String)
+
+# Leagues
+# Index
+
+GET 	/admin/leagues/						controllers.AdminController.index()
+
+# Create
+GET     /admin/leagues/new              	controllers.AdminController.create()
+POST    /admin/leagues/             	 	controllers.AdminController.save()
+
+# Show
+
+GET 	/admin/leagues/show/:id				controllers.AdminController.show(id:Long)
+
+# Edit
+GET     /admin/leagues/:id              	controllers.AdminController.edit(id:Long)
+POST    /admin/leagues/:id              	controllers.AdminController.update(id:Long)
+
+# Delete a league
+GET    /admin/leagues/:id/delete/       	controllers.AdminController.delete(id:Long)
+
+# Add a team
+GET     /admin/leagues/:id/teams/add     	controllers.AdminController.createTeam(id:Long)
+POST    /admin/leagues/:id/teams/           controllers.AdminController.saveTeam(id:Long)
+
+# Edit a team
+GET     /admin/leagues/teams/:teamId     	controllers.AdminController.editTeam(teamId:Long)
+POST    /admin/leagues/teams/:teamId      	controllers.AdminController.updateTeam(teamId:Long)
+
+# Delete a team
+GET    /admin/leagues/teams/:teamId/delete 	controllers.AdminController.deleteTeam(teamId:Long)
+
+# Add a game
+GET     /admin/leagues/:id/games/add     	controllers.AdminController.createGame(id:Long)
+POST    /admin/leagues/:id/games/           controllers.AdminController.saveGame(id:Long)
+
+# Edit a game
+GET     /admin/leagues/games/:gameId     	controllers.AdminController.editGame(gameId:Long)
+POST    /admin/leagues/games/:gameId      	controllers.AdminController.updateGame(gameId:Long)
+
+# Delete a game
+GET    /admin/leagues/games/:gameId/delete 	controllers.AdminController.deleteGame(gameId:Long)
+
+# Add user
+POST    /admin/leagues/:id/users/add        controllers.AdminController.addUser(id:Long)
+
+# Delete a game
+GET    /admin/leagues/:id/users/remove 		controllers.AdminController.removeUser(id:Long, email:String)
+

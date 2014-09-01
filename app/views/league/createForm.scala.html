@@ -1,0 +1,24 @@
+@(leagueForm: Form[League], user: User)
+
+@import helper._
+
+@main("Create League", user) {
+    
+    <h1>Create a league</h1>
+    
+    @form(routes.AdminController.save(), 'id -> "createLeague") {
+        
+            @inputText(leagueForm("name"), '_label -> "League name")
+            @inputText(leagueForm("matchdayCount"), '_label -> "Count of matchdays")
+            @inputText(leagueForm("pointsForRightResult"), '_label -> "right result")
+            @inputText(leagueForm("pointsForRightWinner"), '_label -> "right winner")
+        
+        <div class="actions">
+            <input type="submit" value="Create this league" class="btn primary">
+            <br/>
+            <a href="@routes.AdminController.index()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

@@ -1,0 +1,28 @@
+@(editUser: User, userForm: Form[BooleanForm], user: User)
+
+@import helper._
+
+@main("Edit User", user) {
+    
+    <h1>Edit a user</h1>
+    
+     @form(routes.AdminController.updateUser(editUser.email)){
+        
+        
+	        Name: @editUser.getName()
+	        <br/>
+		    Email: @editUser.email
+		    <br/>
+       
+	        @checkbox(field = userForm("isAdmin"))
+        
+        <div class="actions">
+        	<br/>
+            <input type="submit" value="Update this user" class="btn primary">
+            <br/> 
+            <a href="@routes.AdminController.userIndex()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

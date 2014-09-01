@@ -1,0 +1,39 @@
+@(registerForm: Form[User])
+
+@import helper._
+
+@start("Register") {
+    
+    @helper.form(action = routes.SessionController.register, 'id -> "register") {
+    
+           @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+        
+         
+            @inputText(registerForm("email"), '_label -> "Email", '_showConstraints -> false)
+            @inputPassword(registerForm("password"), '_label -> "Password", '_showConstraints -> false)
+            @inputPassword(registerForm("confirmPassword"), '_label -> "Repeat password", '_showConstraints -> false)
+            @inputText(registerForm("firstname"), '_label -> "Firstname", '_showConstraints -> false)
+            @inputText(registerForm("lastname"), '_label -> "Lastname", '_showConstraints -> false)
+            
+        
+    
+        <div class="actions">
+        	<br/>
+            <input type="submit" class="btn primary" value="Register">
+            <br/>
+            <a href="@routes.SessionController.index()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

@@ -1,0 +1,123 @@
+@(league: League, betForm: Form[Bets], user: User, day: Integer)
+
+@import helper._
+
+@bets(form: Form[Bets], i: Integer, g: Game) = {
+
+    <div class="bet">
+    
+		@defining("bets["+i+"].game.id") { game =>
+  			<input type="hidden" value='@g.id' name="@game" />
+		}
+		
+		@defining("bets["+i+"].user.email") { email =>
+  			<input type="hidden" value='@user.email' name="@email" />
+		}
+		
+		
+		<td>@g.teamHome.name</td>
+		<td>@g.teamAway.name</td>
+			@if(g.findBetByGameAndUser(user.email) != null){
+				<td align="center">@g.findBetByGameAndUser(user.email).goalsHomeTeam : @g.findBetByGameAndUser(user.email).goalsAwayTeam</td>
+			}else{
+				<td align="center">You haven't betted!</td>
+			}
+        <td>@inputText(form("bets[" + i + "].goalsHomeTeam"), '_label -> "", 'size -> 3)</td> 
+		<td align="center">:</td>
+        <td>@inputText(form("bets[" + i + "].goalsAwayTeam"), '_label -> "", 'size -> 3)</td>
+        <td align="center">@g.getResult()</td>
+
+    </div>
+
+}
+
+@main(title = "Betting", user = user) {
+     
+    <h2>@league.name</h2>
+    <a class="btn" href="@routes.ApplicationController.index()">Back to start page</a><br/>
+    
+           @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+            
+            
+            @form(routes.BetController.changeMatchday(league.id), 'id -> "switchMatchday") {    
+    
+	            @select(
+	                betForm("matchday"), 
+	                league.getAllMatchdays().map(m=> m.toString -> (m.toString)), 
+	                '_default -> "Choose a matchday",
+	                '_label -> ""
+	            )
+            
+		        <div class="actions">
+		            <input type="submit" value="Show matchday" class="btn primary">
+		        </div>
+        	}
+        	
+        	<br/>
+        	<br/>
+        	@if(league.getBetableGamesCountByMatchday(day) >= 0 || league.getAllUnbetableGamesByMatchday(day).size() > 0){
+
+            <h3>@day. Matchday</h3>
+        
+       
+		    <table border=1>
+		    <tr>
+		    <th>Home team</th>
+		    <th>Away team</th>
+		    <th>Your bet</th>
+		    <th colspan="3">New bet</th>
+		    <th>Result</th>
+		    </tr>
+		    
+		    @for(g <- league.getAllUnbetableGamesByMatchday(day)) {
+				<tr>
+					<td>@g.teamHome.name</td>
+					<td>@g.teamAway.name</td>
+					@if(g.findBetByGameAndUser(user.email) != null){
+						<td align="center">@g.findBetByGameAndUser(user.email).goalsHomeTeam : @g.findBetByGameAndUser(user.email).goalsAwayTeam</td>
+					}else{
+						<td align="center">You haven't betted!</td>
+					}
+			        <td colspan="3" align="center">Not more possible to bet!</td>
+			        <td align="center">@g.getResult()</td>
+				</tr>
+			}
+    
+    		@form(routes.BetController.save(league.id), 'id -> "submitBet") {
+          
+   
+		    
+		    
+				@for(i <- 0 to league.getBetableGamesCountByMatchday(day)) {
+					<tr>
+						@bets(betForm, i, league.getAllBetableGamesByMatchday(day).get(i))
+					</tr>
+				}
+			</table>
+
+	    <input type="hidden" value='@day' name="matchday" />
+        
+        <div class="actions">
+       		<br/>
+            <input type="submit" value="Bet" class="btn primary" id="submitButton">
+            <br/>
+            <a href="@routes.ApplicationController.index()" class="btn">Cancel</a> 
+        </div>
+        } 
+        
+        
+    } else {
+        <h2>No games for betting!</h2>
+    }
+    
+}

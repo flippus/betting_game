@@ -1,0 +1,30 @@
+@(title: String, user: User)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <div id=navbar>
+        <title>Betting game - @title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <ul>
+        <li><a href="@routes.ApplicationController.index">League overview</a></li>
+        @if(user.isAdmin){
+        	<li><a href="@routes.AdminController.index">League administration area</a></li>
+        	<li><a href="@routes.AdminController.userIndex">Admin administration area</a></li>
+        }
+        <li>@user.getName()</li>
+        <li><a href="@routes.UserController.changePassword">Change password</a></li>
+        <li><a href="@routes.SessionController.logout">Logout</a></li>
+		</ul>
+    </div>
+    </head>
+    <body>
+    <div id=body>
+        @content
+    </div>
+    </body>
+    <div id=footer>&copy; 2012 - 2014 Philipp Neugebauer, Florian Klement</div>
+</html>

@@ -1,0 +1,114 @@
+@(league: League, userForm:Form[StringForm], user: User)
+
+@import helper._
+
+@main("League Show", user) {
+
+<h1>@league.name Show</h1>
+
+
+           @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+
+    <a class="btn" href="@routes.AdminController.index()">Back to league index</a><br/>
+
+	Name: @league.name <br/>
+	Count of matchdays: @league.matchdayCount <br/>
+	<h3>Bet points</h3>
+	Right result: @league.pointsForRightResult <br/>
+	Right Winner: @league.pointsForRightWinner <br/>
+
+
+
+	<br/><br/>
+    <a class="btn" id="add" href="@routes.AdminController.createTeam(league.id)">Add a new team</a>
+    <br/><br/>
+
+	@if(league.getAllTeamsByLeague().size() > 0){
+	    <table border=1>
+	    <tr>
+			<th>Name</th>
+		    <th></th>
+		    <th></th>
+		 </tr> 
+		@for(t <- league.getAllTeamsByLeague()) {
+			<tr>
+	  			<td>@t.name</td>
+	  			<td><a href="@routes.AdminController.editTeam(t.id)">Edit</a></td>
+	  			<td><a href="@routes.AdminController.deleteTeam(t.id)">Delete</a></td>
+	  		</tr>
+			}
+		</table>
+		
+		<br/><br/>
+	}
+    <a class="btn" id="add" href="@routes.AdminController.createGame(league.id)">Add a new game</a>
+    <br/><br/>
+	
+	@if(league.getAllGamesByLeague().size() > 0){
+		<table border=1>
+	    <tr>
+			<th>Home team</th>
+		    <th>Away Team</th>
+		    <th>Matchday</th>
+		    <th>Result</th>
+		   	<th></th>
+		    <th></th>
+		 </tr> 
+		@for(g <- league.getAllGamesByLeague()) {
+			<tr>
+	  			<td>@g.teamHome.name</td>
+	  			<td>@g.teamAway.name</td>
+	  			<td align="right">@g.matchday</td>
+	  			<td align="center">@g.getResult()</td>
+	  			<td><a href="@routes.AdminController.editGame(g.id)">Edit</a></td>
+	  			<td><a href="@routes.AdminController.deleteGame(g.id)">Delete</a></td>
+	  		</tr>
+			}
+		</table>
+		
+		
+		<br/><br/>
+	}
+    @form(routes.AdminController.addUser(league.id), 'is -> "addUser") {
+    
+            @select(
+                userForm("email"), 
+                league.findAllUsersOutOfLeague().map(u=> u.email -> (u.getName())), 
+                '_default -> "Choose a user",
+               '_label -> "Add user",
+                '_error -> userForm("email").error.map(_.withMessage("Please select user to add"))
+            )
+          
+     
+        <div class="actions">
+            <input type="submit" value="Add" class="btn primary"> 
+        </div>
+        
+    }
+    <br/><br/>
+	
+	@if(league.getAllUsersByLeague().size() > 0){
+		<table border=1>
+	    <tr>
+			<th>User name</th>
+		    <th></th>
+		 </tr> 
+		@for(u <- league.getAllUsersByLeague()) {
+			<tr>
+	  			<td>@u.getName()</td>
+	  			<td><a href="@routes.AdminController.removeUser(league.id, u.email)" id="remove_@u.email">Remove</a></td>
+	  		</tr>
+			}
+		</table>
+	}
+}

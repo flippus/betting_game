@@ -1,0 +1,24 @@
+@(id: Long, leagueForm: Form[League], user: User)
+
+@import helper._
+
+@main("Edit a league", user = user) {
+    
+    <h1>Edit a league</h1>
+    
+    @form(routes.AdminController.update(id), 'id -> "editLeague") {
+        
+            @inputText(leagueForm("name"), '_label -> "League name")
+            @inputText(leagueForm("matchdayCount"), '_label -> "Count of matchdays")
+            @inputText(leagueForm("pointsForRightResult"), '_label -> "right result")
+            @inputText(leagueForm("pointsForRightWinner"), '_label -> "right winner")
+        
+        <div class="actions">
+            <input type="submit" value="Update this league" class="btn primary">
+            <br/>
+            <a href="@routes.AdminController.index()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

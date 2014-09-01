@@ -1,0 +1,47 @@
+@(user: User)
+
+@main(title = "Welcome", user) {
+
+   
+    <h2>Welcome, @user.getName()!</h2>
+    
+           @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+    
+    @if(user.getLeaguesByUser().size() > 0){
+	    <h2>You're playing in the following leagues:</h2>
+	    
+	    <table border="1">
+	    <tr>
+			<th>League name</th>
+		    <th>Points</th>
+		    <th>Position</th>
+		    <th></th>
+		    <th></th>
+		    <th></th>
+		 </tr> 
+		@for(l <- user.getLeaguesByUser) {
+			<tr>
+	  			<td>@l.name</td>
+	  			<td align="right">@l.getUserPoints(user.email)</td>
+	  			<td align="right">@l.getUserPosition(user.email)</td>
+	  			<td><a href="@routes.BetController.index(l.id)">Bet!</a></td>
+	  			<td><a href="@routes.BetController.showHighscore(l.id)">Highscore</a></td>
+	  			<td><a href="@routes.BetController.showTable(l.id)">Leaguetable</a></td>
+	  		</tr>
+			}
+		</table>
+	}else{
+		<h2>You're not playing in a league</h2>
+	}
+    
+}

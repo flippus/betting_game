@@ -1,0 +1,30 @@
+@(leagueName: String, calculator: LeagueCalculator, user: User)
+
+@main("User highscore", user) {
+    
+    <h2>@leagueName user highscore</h2>
+    <br/>
+    
+    <a class="btn" href="@routes.ApplicationController.index()">Back to start page</a><br/>
+    
+    <table border=1>
+    <tr>
+    	<th>Position</th>
+		<th>Name</th>
+	    <th>Bet points</th>
+	    <th>Right results</th>
+	    <th>Right winners</th>
+	 </tr> 
+	@for(i <- 0 to calculator.getOrderedUserPointsCount()) {
+		<tr>
+			<td align=right>@calculator.getOrderedUserPoints().get(i).position</td>
+  			<td>@calculator.getOrderedUserPoints().get(i).user.getName()</td>
+  			<td align=right>@calculator.getOrderedUserPoints().get(i).points</td>
+  			<td align=right>@calculator.getOrderedUserPoints().get(i).rightResultCount</td>
+  			<td align=right>@calculator.getOrderedUserPoints().get(i).rightWinnerCount</td>
+  		</tr>
+		}
+	</table>
+
+    
+}

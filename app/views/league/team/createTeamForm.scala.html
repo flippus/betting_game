@@ -1,0 +1,22 @@
+@(id: Long, teamForm: Form[Team], user: User)
+
+@import helper._
+
+@main("Create Team", user) {
+    
+    <h1>Create a team</h1>
+    
+    @form(routes.AdminController.saveTeam(id), 'id -> "createTeam") {
+        
+            @inputText(teamForm("name"), '_label -> "Team name")
+            <input type="hidden" value='@id' name="league.id" />
+         
+        <div class="actions">
+            <input type="submit" value="Create this team" class="btn primary">
+            <br/>
+            <a href="@routes.AdminController.show(id)" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+}

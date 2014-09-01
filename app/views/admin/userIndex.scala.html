@@ -1,0 +1,40 @@
+@(users: List[User], user: User)
+
+@main(title = "User Admin Overview", user = user) {
+    
+    <h1>Admin Administration View</h1>
+    
+    <br/>
+    
+                   @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+    
+    <table border=1>
+    <tr>
+		<th>Name</th>
+	    <th>Email</th>
+	    <th>Admin?</th>
+	    <th></th>
+	    <th></th>
+	 </tr> 
+	@for(u <- users) {
+		<tr>
+  			<td>@u.getName()</td>
+  			<td>@u.email</td>
+  			<td>@u.isAdmin</td>
+   			<td><a href="@routes.AdminController.editUser(u.email)">Edit</a></td>
+  			<td><a href="@routes.AdminController.deleteUser(u.email)">Delete</a></td>
+  		</tr>
+		}
+	</table>
+    
+}

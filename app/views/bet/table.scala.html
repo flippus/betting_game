@@ -1,0 +1,54 @@
+@(leagueName: String, leagueCalculator:LeagueCalculator, user: User)
+
+@main(title = "League table", user = user) {
+     
+    <h2>@leagueName table</h2>
+    <a class="btn" href="@routes.ApplicationController.index()">Back to start page</a><br/>
+    <h3>@leagueCalculator.league.actualMatchday. Matchday</h3>
+    <br/>
+   	<br/>
+   @if(leagueCalculator.league.getTeamCount() > 0){
+    <table border=1>
+	@for(g <- leagueCalculator.league.getAllGamesByMatchday(leagueCalculator.league.actualMatchday)) {
+		<tr>
+  			<td>@g.teamHome.name</td>
+  			<td>@g.teamAway.name</td>
+  			<td align=center>@g.getResult()</td>
+  		</tr>
+		}
+	</table>
+	
+	<br/>
+	<br/>
+    
+    <table border=1>
+    <tr>
+    	<th>Position</th>
+		<th>Name</th>
+		<th>Matches</th>
+	    <th>Wins</th>
+	    <th>Draws</th>
+	    <th>Losses</th>
+	   	<th>Goals</th>
+	   	<th>Goals against</th>
+	   	<th>Points</th>
+	 </tr> 
+	@for(i <- 0 to leagueCalculator.getOrderedTeamsCount()) {
+		<tr>
+			<td align=right>@leagueCalculator.getOrderedTeams().get(i).position</td>
+  			<td>@leagueCalculator.getOrderedTeams().get(i).name</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).matches</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).wins</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).draws</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).losses</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).goals</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).goalsAgainst</td>
+  			<td align=right>@leagueCalculator.getOrderedTeams().get(i).points</td>
+  		</tr>
+		}
+	</table>
+	}else{
+	 <h3>There are no teams!</h3>
+	}
+    
+}

@@ -1,0 +1,47 @@
+@(leagues: List[League], user: User)
+
+@main(title = "League Admin Overview", user = user) {
+    
+    <h1>League Administration View</h1>
+    
+    <a class="btn" id="add" href="@routes.AdminController.create()">Create a new league</a>
+    <br/><br/>
+    
+               @if(flash.contains("error")) {
+                <p class="error" style="color:red">
+                    @flash.get("error")
+                </p>
+           }
+           
+            @if(flash.contains("success")) {
+                <p class="success"  style="color:green">
+                    @flash.get("success")
+                </p>
+            }
+    
+    <table border=1>
+    <tr>
+		<th>Name</th>
+	    <th>Better</th>
+	    <th>Teams</th>
+	    <th>Points for right result</th>
+	    <th>Points for right winner</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	 </tr> 
+	@for(l <- leagues) {
+		<tr>
+  			<td>@l.name</td>
+  			<td align=right>@l.getUserCount()</td>
+  			<td align=right>@l.getTeamCount()</td>
+  			<td align=right>@l.pointsForRightResult</td>
+  			<td align=right>@l.pointsForRightWinner</td>
+  			<td><a href="@routes.AdminController.show(l.id)">Show</a></td>
+  			<td><a href="@routes.AdminController.edit(l.id)">Edit</a></td>
+  			<td><a href="@routes.AdminController.delete(l.id)">Delete</a></td>
+  		</tr>
+		}
+	</table>
+    
+}
