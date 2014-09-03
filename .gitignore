@@ -1,5 +1,3 @@
-*.uml
-*.umlcd
 *.idea
 *.iml
 *.sbt
@@ -8,7 +6,6 @@ bin/*
 logs/*
 target/*
 .settings/*
-.target/*
 .project
 .classpath
 .history
