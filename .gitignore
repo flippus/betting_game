@@ -1,6 +1,5 @@
 *.idea
 *.iml
-*.sbt
 .idea_modules
 bin/*
 logs/*
