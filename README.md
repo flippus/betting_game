@@ -1,6 +1,6 @@
 # (Football) Betting game  #
 
-You need the [playFramework](https://www.playframework.org) in version 2.3.3 for Java to run and install this system.
+You need the [playFramework](https://www.playframework.org) in version 2.3.4 for Java to run and install this system.
 
 ### Developers
 
