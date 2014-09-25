@@ -13,6 +13,9 @@ import views.html.session.register;
 
 /**
  *
+ * Betting game realized with PlayFramework to bet different sport results with
+ * other persons to determine the best better
+ *
  * Copyright (C) 2014 Philipp Neugebauer, Florian Klement
  *
  * This program is free software; you can redistribute it and/or modify it under

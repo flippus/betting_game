@@ -17,6 +17,9 @@ import play.test.TestBrowser;
 
 /**
  *
+ * Betting game realized with PlayFramework to bet different sport results with
+ * other persons to determine the best better
+ *
  * Copyright (C) 2014 Philipp Neugebauer, Florian Klement
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -41,93 +44,93 @@ public class RegistrationIntegrationTest {
 	public void validRegistration() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
+					@Override
+					public void invoke(TestBrowser browser) {
 
-				browser.goTo("http://localhost:3333/register");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
+						browser.goTo("http://localhost:3333/register");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
 
-				browser.fill("#email").with("test@register.com");
-				browser.fill("#password").with("password");
-				browser.fill("#confirmPassword").with("password");
-				browser.fill("#firstname").with("test");
-				browser.fill("#lastname").with("registration");
-				browser.submit("#register");
+						browser.fill("#email").with("test@register.com");
+						browser.fill("#password").with("password");
+						browser.fill("#confirmPassword").with("password");
+						browser.fill("#firstname").with("test");
+						browser.fill("#lastname").with("registration");
+						browser.submit("#register");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/login");
-				assertNotNull(User.findByEmail("test@register.com"));
-			}
-		});
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/login");
+						assertNotNull(User.findByEmail("test@register.com"));
+					}
+				});
 	}
 
 	@Test
 	public void invalidConfirmRegistration() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
+					@Override
+					public void invoke(TestBrowser browser) {
 
-				browser.goTo("http://localhost:3333/register");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
+						browser.goTo("http://localhost:3333/register");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
 
-				browser.fill("#email").with("test@register.com");
-				browser.fill("#password").with("password");
-				browser.fill("#confirmPassword").with("password2");
-				browser.fill("#firstname").with("test");
-				browser.fill("#lastname").with("registration");
-				browser.submit("#register");
+						browser.fill("#email").with("test@register.com");
+						browser.fill("#password").with("password");
+						browser.fill("#confirmPassword").with("password2");
+						browser.fill("#firstname").with("test");
+						browser.fill("#lastname").with("registration");
+						browser.submit("#register");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
-				assertNull(User.findByEmail("test@register.com"));
-			}
-		});
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
+						assertNull(User.findByEmail("test@register.com"));
+					}
+				});
 	}
 
 	@Test
 	public void testEmptyRegistration() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
+					@Override
+					public void invoke(TestBrowser browser) {
 
-				browser.goTo("http://localhost:3333/register");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
+						browser.goTo("http://localhost:3333/register");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
 
-				browser.submit("#register");
+						browser.submit("#register");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
-			}
-		});
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
+					}
+				});
 	}
 
 	@Test
 	public void testWrongRegistration() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
+					@Override
+					public void invoke(TestBrowser browser) {
 
-				browser.goTo("http://localhost:3333/register");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
+						browser.goTo("http://localhost:3333/register");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
 
-				browser.fill("#email").with("test");
-				browser.fill("#password").with("password");
-				browser.fill("#confirmPassword").with("password");
-				browser.fill("#firstname").with("test");
-				browser.fill("#lastname").with("registration");
-				browser.submit("#register");
+						browser.fill("#email").with("test");
+						browser.fill("#password").with("password");
+						browser.fill("#confirmPassword").with("password");
+						browser.fill("#firstname").with("test");
+						browser.fill("#lastname").with("registration");
+						browser.submit("#register");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/register");
-			}
-		});
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/register");
+					}
+				});
 	}
 
 }

@@ -14,6 +14,9 @@ import play.test.TestBrowser;
 
 /**
  *
+ * Betting game realized with PlayFramework to bet different sport results with
+ * other persons to determine the best better
+ *
  * Copyright (C) 2014 Philipp Neugebauer, Florian Klement
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -56,35 +59,35 @@ public class AdminAccessIntegrationTest {
 	public void authorizedAccessTest() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
-				loginTestAdmin(browser);
+					@Override
+					public void invoke(TestBrowser browser) {
+						loginTestAdmin(browser);
 
-				browser.goTo("http://localhost:3333/admin/leagues/");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/admin/leagues/");
-				browser.goTo("http://localhost:3333/admin/users/");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/admin/users/");
-			}
-		});
+						browser.goTo("http://localhost:3333/admin/leagues/");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/admin/leagues/");
+						browser.goTo("http://localhost:3333/admin/users/");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/admin/users/");
+					}
+				});
 	}
 
 	@Test
 	public void unauthorizedAccessTest() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
-				loginTestUser(browser);
+					@Override
+					public void invoke(TestBrowser browser) {
+						loginTestUser(browser);
 
-				browser.goTo("http://localhost:3333/admin/leagues/");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
-				browser.goTo("http://localhost:3333/admin/users/");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
-			}
-		});
+						browser.goTo("http://localhost:3333/admin/leagues/");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
+						browser.goTo("http://localhost:3333/admin/users/");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
+					}
+				});
 	}
 }

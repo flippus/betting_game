@@ -4,6 +4,9 @@ import java.util.List;
 
 /**
  *
+ * Betting game realized with PlayFramework to bet different sport results with
+ * other persons to determine the best better
+ *
  * Copyright (C) 2014 Philipp Neugebauer, Florian Klement
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -40,7 +43,7 @@ public class LeagueCalculator {
 				.eq("league_id", league.id)
 				.orderBy(
 						"points desc, rightResultCount desc, rightWinnerCount desc")
-						.findList();
+				.findList();
 	}
 
 	public void calculateUserRanking() {

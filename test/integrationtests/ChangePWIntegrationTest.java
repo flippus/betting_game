@@ -14,6 +14,9 @@ import play.test.TestBrowser;
 
 /**
  *
+ * Betting game realized with PlayFramework to bet different sport results with
+ * other persons to determine the best better
+ *
  * Copyright (C) 2014 Philipp Neugebauer, Florian Klement
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -47,89 +50,89 @@ public class ChangePWIntegrationTest {
 	public void validChange() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
-				loginTestUser(browser, "password");
+					@Override
+					public void invoke(TestBrowser browser) {
+						loginTestUser(browser, "password");
 
-				browser.goTo("http://localhost:3333/changepassword");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/changepassword");
+						browser.goTo("http://localhost:3333/changepassword");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/changepassword");
 
-				browser.fill("#password").with("testnewpw");
-				browser.fill("#confirmPassword").with("testnewpw");
-				browser.submit("#changePW");
+						browser.fill("#password").with("testnewpw");
+						browser.fill("#confirmPassword").with("testnewpw");
+						browser.submit("#changePW");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
 
-				browser.goTo("http://localhost:3333/logout");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/login");
+						browser.goTo("http://localhost:3333/logout");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/login");
 
-				loginTestUser(browser, "testnewpw");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
-			}
-		});
+						loginTestUser(browser, "testnewpw");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
+					}
+				});
 	}
 
 	@Test
 	public void invalidConfirmChange() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
-				loginTestUser(browser, "password");
+					@Override
+					public void invoke(TestBrowser browser) {
+						loginTestUser(browser, "password");
 
-				browser.goTo("http://localhost:3333/changepassword");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/changepassword");
+						browser.goTo("http://localhost:3333/changepassword");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/changepassword");
 
-				browser.fill("#password").with("testnewpw");
-				browser.fill("#confirmPassword").with("testwrongpw");
-				browser.submit("#changePW");
+						browser.fill("#password").with("testnewpw");
+						browser.fill("#confirmPassword").with("testwrongpw");
+						browser.submit("#changePW");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/setpassword");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/setpassword");
 
-				browser.goTo("http://localhost:3333/logout");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/login");
+						browser.goTo("http://localhost:3333/logout");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/login");
 
-				loginTestUser(browser, "password");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
-			}
-		});
+						loginTestUser(browser, "password");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
+					}
+				});
 	}
 
 	@Test
 	public void invalidLengthChange() {
 		running(testServer(3333, fakeApplication(inMemoryDatabase())),
 				HTMLUNIT, new Callback<TestBrowser>() {
-			@Override
-			public void invoke(TestBrowser browser) {
-				loginTestUser(browser, "password");
+					@Override
+					public void invoke(TestBrowser browser) {
+						loginTestUser(browser, "password");
 
-				browser.goTo("http://localhost:3333/changepassword");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/changepassword");
+						browser.goTo("http://localhost:3333/changepassword");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/changepassword");
 
-				browser.fill("#password").with("hello");
-				browser.fill("#confirmPassword").with("hello");
-				browser.submit("#changePW");
+						browser.fill("#password").with("hello");
+						browser.fill("#confirmPassword").with("hello");
+						browser.submit("#changePW");
 
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/setpassword");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/setpassword");
 
-				browser.goTo("http://localhost:3333/logout");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/login");
+						browser.goTo("http://localhost:3333/logout");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/login");
 
-				loginTestUser(browser, "password");
-				assertThat(browser.url()).isEqualTo(
-						"http://localhost:3333/");
-			}
-		});
+						loginTestUser(browser, "password");
+						assertThat(browser.url()).isEqualTo(
+								"http://localhost:3333/");
+					}
+				});
 	}
 }
