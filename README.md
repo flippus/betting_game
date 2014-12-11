@@ -1,6 +1,6 @@
 # (Football) Betting game  #
 
-You need the [playFramework](https://www.playframework.org) in version 2.3.5 for Java to install and run this system.
+You need the [playFramework](https://www.playframework.org) in version 2.3.7 for Java to install and run this system.
 
 The playFramework can be started by `activator`. The following commands can be used:
 
