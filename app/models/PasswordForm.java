@@ -1,5 +1,3 @@
-package models;
-
 /**
  *
  * Betting game realized with PlayFramework to bet different sport results with
@@ -22,10 +20,11 @@ package models;
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+package models;
 
 public class PasswordForm {
 
-	public String password;
-	public String confirmPassword;
+    public String password;
+    public String confirmPassword;
 
 }

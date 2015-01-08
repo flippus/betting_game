@@ -1,14 +1,3 @@
-package functionaltests;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.inMemoryDatabase;
-import static play.test.Helpers.running;
-import models.PasswordHelper;
-
-import org.junit.Test;
-
 /**
  *
  * Betting game realized with PlayFramework to bet different sport results with
@@ -31,30 +20,40 @@ import org.junit.Test;
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+package functionaltests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.inMemoryDatabase;
+import static play.test.Helpers.running;
+import models.PasswordHelper;
+
+import org.junit.Test;
 
 public class PasswordHelperFunctionalTest {
 
-	@Test
-	public void testGetEncryptedPassword() {
-		running(fakeApplication(inMemoryDatabase()), new Runnable() {
-			@Override
-			public void run() {
-				String salt = PasswordHelper.generateSalt();
+    @Test
+    public void testGetEncryptedPassword() {
+        running(fakeApplication(inMemoryDatabase()), new Runnable() {
+            @Override
+            public void run() {
+                String salt = PasswordHelper.generateSalt();
 
-				String password1 = PasswordHelper.getEncryptedPassword(
-						"password", salt);
+                String password1 = PasswordHelper.getEncryptedPassword(
+                        "password", salt);
 
-				String password2 = PasswordHelper.getEncryptedPassword(
-						"password", salt);
+                String password2 = PasswordHelper.getEncryptedPassword(
+                        "password", salt);
 
-				assertEquals(password1, password2);
+                assertEquals(password1, password2);
 
-				String wrongPassword = PasswordHelper.getEncryptedPassword(
-						"password", salt);
+                String wrongPassword = PasswordHelper.getEncryptedPassword(
+                        "password", salt);
 
-				assertNotSame(wrongPassword, password2);
-			}
-		});
-	}
+                assertNotSame(wrongPassword, password2);
+            }
+        });
+    }
 
 }

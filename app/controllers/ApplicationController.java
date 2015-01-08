@@ -1,11 +1,3 @@
-package controllers;
-
-import models.User;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import views.html.welcome.index;
-
 /**
  *
  * Betting game realized with PlayFramework to bet different sport results with
@@ -28,16 +20,23 @@ import views.html.welcome.index;
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+package controllers;
+
+import models.User;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
+import views.html.welcome.index;
 
 @Security.Authenticated(SecurityController.class)
 public class ApplicationController extends Controller {
 
-	public static Result index() {
-		User user = User.findByEmail(session().get("email"));
-		if (user == null) {
-			session().clear();
-			return redirect(routes.SessionController.index());
-		}
-		return ok(index.render(user));
-	}
+    public static Result index() {
+        User user = User.findByEmail(session().get("email"));
+        if (user == null) {
+            session().clear();
+            return redirect(routes.SessionController.index());
+        }
+        return ok(index.render(user));
+    }
 }

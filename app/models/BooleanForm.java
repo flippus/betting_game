@@ -1,7 +1,3 @@
-package models;
-
-import play.db.ebean.Model;
-
 /**
  *
  * Betting game realized with PlayFramework to bet different sport results with
@@ -24,20 +20,23 @@ import play.db.ebean.Model;
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+package models;
+
+import play.db.ebean.Model;
 
 public class BooleanForm extends Model {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	public boolean isAdmin;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    public boolean isAdmin;
 
-	public BooleanForm() {
-	}
+    public BooleanForm() {
+    }
 
-	public BooleanForm(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+    public BooleanForm(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
 }

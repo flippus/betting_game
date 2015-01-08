@@ -1,8 +1,3 @@
-package models;
-
-import com.typesafe.plugin.MailerAPI;
-import com.typesafe.plugin.MailerPlugin;
-
 /**
  *
  * Betting game realized with PlayFramework to bet different sport results with
@@ -25,16 +20,20 @@ import com.typesafe.plugin.MailerPlugin;
  * Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
+package models;
+
+import com.typesafe.plugin.MailerAPI;
+import com.typesafe.plugin.MailerPlugin;
 
 public class Mailer {
 
-	public static void sendMail(String email, String password) {
-		MailerAPI mail = play.Play.application().plugin(MailerPlugin.class)
-				.email();
-		mail.setSubject("New password");
-		mail.addRecipient(email);
-		mail.addFrom("bettinggame@unibz.it");
-		String text = "Here is your new password: " + password;
-		mail.send(text);
-	}
+    public static void sendMail(String email, String password) {
+        MailerAPI mail = play.Play.application().plugin(MailerPlugin.class)
+                .email();
+        mail.setSubject("New password");
+        mail.addRecipient(email);
+        mail.addFrom("bettinggame@unibz.it");
+        String text = "Here is your new password: " + password;
+        mail.send(text);
+    }
 }
