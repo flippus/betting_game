@@ -3,7 +3,7 @@
 Betting game to find the best match predictor in your group. Mainly developed for football, also other sport betting could be realized (maybe some adaption required). Supports password resetting, automatic bets and leagues calculation, league and bet administration.
 
 # Installation/Usage
-You need the [playFramework](https://www.playframework.org) in version 2.3.7 for Java to install and run this system.
+You need the [playFramework](https://www.playframework.org) in version 2.3.8 for Java to install and run this system.
 
 The playFramework can be started by `activator`. The following commands can be used:
 
